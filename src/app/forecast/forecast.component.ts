@@ -4,6 +4,7 @@ import 'rxjs';
 import { ForecastWeather } from '../forecast-weather';
 import { WeatherService } from '../weather.service';
 import { DatePipe } from '@angular/common';
+import {Platform} from '@angular/cdk/platform'
 
 @Component({
   selector: 'wa-forecast',
@@ -14,9 +15,10 @@ export class ForecastComponent implements OnInit{
   forecastForm !: FormGroup;  
   cityForecast : ForecastWeather[] = [];
 
-  constructor(private ws : WeatherService){}
+  constructor(private ws : WeatherService, private pt : Platform){}
 
   ngOnInit(): void {
+    console.log(this.pt.FIREFOX);
     this.forecastForm = new FormGroup({
       forecastCity : new FormControl('')
     })
