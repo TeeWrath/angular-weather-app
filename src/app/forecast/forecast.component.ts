@@ -5,6 +5,7 @@ import { ForecastWeather } from '../forecast-weather';
 import { WeatherService } from '../weather.service';
 import { DatePipe } from '@angular/common';
 import {Platform} from '@angular/cdk/platform'
+import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout'
 
 @Component({
   selector: 'wa-forecast',
@@ -15,10 +16,14 @@ export class ForecastComponent implements OnInit{
   forecastForm !: FormGroup;  
   cityForecast : ForecastWeather[] = [];
 
-  constructor(private ws : WeatherService, private pt : Platform){}
+  constructor(private ws : WeatherService, private pt : Platform, public responsive : BreakpointObserver){}
 
   ngOnInit(): void {
-    console.log(this.pt.FIREFOX);
+    this.responsive.observe(Breakpoints.Small).subscribe( result => {
+      if(result.matches){
+        console.log(result);
+      }
+    })
     this.forecastForm = new FormGroup({
       forecastCity : new FormControl('')
     })
